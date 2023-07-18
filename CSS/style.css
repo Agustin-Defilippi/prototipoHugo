@@ -1,3 +1,33 @@
+.containerUsuario{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   
+}
+.containerUsuario .usuario{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.containerUsuario .usuario div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    border: black 2px solid;
+    background-color: black;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.containerUsuario .usuario div input{
+    width: 50%;
+    padding: 2px;
+    margin: 7px 0;
+    
+}
 .containerPadre{
    display: flex;
    justify-content: center;
@@ -57,10 +87,11 @@
   
 }
 .containerPadre .mercaderiaDefinida div .containers-mercaderia{
+    display: flex;
+    margin: 10px;
     border: solid black 2px;
-    margin: 8px;
     width: 100%;
-    background-color: rgb(209, 209, 209);
+    background-color: rgb(230, 230, 230);
 }
 .containerPadre .mercaderiaDefinida div .containers-mercaderia .cantidades{
     width: 100%;
@@ -68,6 +99,7 @@
 .containerPadre .containerTotal{
     width: 100%;
     display: flex;
+   
     justify-content: center;
     align-items: center;
     margin: 20px 0;
