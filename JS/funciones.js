@@ -1,5 +1,5 @@
 // Funcion ingreso Usuario
-const crearIngreso = () => {
+const permitirIngreso = () => {
     const ingreso = document.createElement("div");
     ingreso.innerHTML = `
         <label class="mb-1">Ingrese Nombre Usuario</label>
@@ -37,7 +37,7 @@ const renderContPadre = () => {
     return `
     <div class="containerPrograma">
         <div class="containerForm1">
-            <h1>Programa Mercaderia Hugo</h1>
+            <h1>PROGRAMA MERCADERIA HUGO</h1>
             <div class="containerForm2">
                 <div class="containerForm">
                     <div class="form">
@@ -53,6 +53,9 @@ const renderContPadre = () => {
         <div class="containerTotal">
             <div class="total" id="casillasTotal">
                 
+            </div>
+            <div id="card">
+            
             </div>
         </div>
     </div>`;
@@ -79,8 +82,11 @@ const renderContenedoresMercaderia = (valor,contenedor) =>{
                     <label class="mb-2"><b>*Descuento Producto (${i})</label></b>
                     <input type="text" id="input-descuento${i}">
                 </div>
-                <div class="mb-3 cantidades" id="totalCasillas${i}">
-                    <p id="totalCasilla" class="bg-warning"> </p>
+                <div class="mb-3 cantidades bg-warning" id="subTotalCasillas${i}">
+                    <b><p id="subTotalLista">SUBTOTAL LISTA: 0</p></b>
+                </div>
+                <div class="mb-3 cantidades bg-warning" id="subTotalCasillasNeto${i}">
+                <b><p id="subTotalNeto" class="bg-warning">SUBTOTAL NETO: 0</p></b>
                 </div>
             </div>`;
     }
@@ -92,16 +98,44 @@ const renderFormulario = (contenedor) =>{
     <form id="formulario" class="formularioDatos">
         <div>${contenedor.innerHTML}</div>
         <button class="btn text-warning  btn-calcular bg-dark border-warning mt-2" type="submit">Calcular</button>
-        <button id="btn-reset" class="btn text-warning  btn-calcular bg-dark border-warning mt-2" type="submit">Resetear</button>
+        <button id="btn-reset" class="btn text-warning  btn-calcular bg-dark border-warning mt-2" type="button">Resetear</button>
     </form>`;
 }
 
-// Funcion subTotal de casillas individuales
-const calcularTotalCasilla = (precio,unidades) =>{
-    const totalCasilla = document.getElementById(`totalCasilla`);
-    
-    return totalCasilla.innerHTML = `<b><p class ="bg-warning">Sub Total: $${precio * unidades}</p></b>`;
+// Funcion Calcular descuentos
+const calcularDescuentos = (precioProducto,porcentajeDescuento) =>{
+    const descuento = (precioProducto * porcentajeDescuento) / 100;
+    const precioConDescuento = precioProducto - descuento;
+    return Math.round(precioConDescuento);
 }
+
+// Funcion subTotal de casillas individuales
+const calcularSubTotalLista = (precio, unidades, iteracion) => {
+    const subTotalCasilla = document.getElementById(`subTotalCasillas${iteracion}`);
+    const subTotalLista = document.getElementById("subTotalLista");
+    
+   
+    if (subTotalCasilla !== null) {
+      let salida = subTotalCasilla.innerHTML = `<b><p">SUBTOTAL LISTA: $${precio * unidades}</p></b>`;
+      return subTotalLista.innerHTML = salida;
+    } else {
+      return subTotalLista.innerHTML = "";
+    }
+  }
+
+// Funcion subTotal de casillas individuales
+/* const calcularSubTotalNeto = (precio,descuentoProducto,iteracion) =>{
+    const subTotalCasillaNeto = document.getElementById(`subTotalCasillasNeto${iteracion}`);
+    
+    const subTotalNeto = document.getElementById("subTotalNeto");
+
+    if(subTotalCasillaNeto !== ""){
+        let salida2 = subTotalCasillaNeto.innerHTML = `<b><p>SUBTOTAL NETO: $${calcularDescuentos(precio,descuentoProducto)}</p></b>`;
+        return subTotalNeto.innerHTML= salida2;
+    }else{
+        return subTotalNeto.innerHTML =""
+    }
+} */
 
 // Funcion Total de  todas las casillas
 const calcularTotalCasillas = () =>{
@@ -112,4 +146,19 @@ const calcularTotalCasillas = () =>{
      return acumulador+= item.precio * item.unidades
    },0)
    totalCasilla.innerHTML = `<p>Total Precios Mercaderia: $${total}</p>`
+}
+
+// Funcion Reseto de casillas
+const resetearCasillas = (form,array) =>{
+    
+    form.reset();
+
+    array.length=0;
+    const totalFuera = document.getElementById("casillasTotal");
+    
+  
+    totalFuera.innerHTML="";
+    
+   
+ 
 }

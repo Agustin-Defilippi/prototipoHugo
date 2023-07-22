@@ -1,7 +1,7 @@
 const usuario = document.getElementById("usuario");
 const contPadre = document.getElementById("containerPadre");
 
-crearIngreso();
+permitirIngreso();
 
 const alamacenarDatos = (nombre,unidades,precio,descuento) =>{
     const datosMercaderia={
@@ -37,25 +37,38 @@ const setupInputMercaderiaChange = () => {
                 const unidadesProducto = document.getElementById(`input-unidades${i}`).value;
                 const precioMercaderia = document.getElementById(`input-precio${i}`).value;
                 const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
-                const totalCasillas = document.getElementById(`totalCasillas${i}`);
 
                 let almacenDatos = alamacenarDatos(nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto);
                 datos.push(almacenDatos);
-                totalCasillas.innerHTML= calcularTotalCasilla(precioMercaderia,unidadesProducto);
+                calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
+                /* calcularSubTotalNeto(precioMercaderia,descuentoProducto,i) */
                 calcularTotalCasillas();
-                const btnReset = document.getElementById("btn-reset");
-
-                btnReset.addEventListener("click", () =>{
-                    const totalFuera = document.getElementById("casillasTotal");
-                    formulario.reset();
-                    datos.splice(0,datos.length);
-                    console.log(datos);
-                    totalFuera.innerHTML="";
-                    totalCasillas.innerHTML="";
-                })
+                console.log(datos);
+             
             }
-            console.log(datos);
         });
+
+        const btnReset = document.getElementById("btn-reset");
+        btnReset.addEventListener("click", () =>{
+            resetearCasillas(formulario,datos)
+            console.log(datos);
+            for (let i = 1; i <= inputMercaderia.value; i++) {
+                const subTotalCasilla = document.getElementById(`subTotalCasillas${i}`);
+                subTotalCasilla.innerHTML = "";
+            }
+           console.log(datos);
+
+           const card = document.getElementById("card");
+            let pepe = datos;
+            let salida ="";
+            pepe.forEach(item =>{
+                salida+= `<p>${item.precio}</p>`
+            })
+            card.innerHTML = salida
+        })
+     
+        calcularTotalCasillas();
+        
     });
 };
 
