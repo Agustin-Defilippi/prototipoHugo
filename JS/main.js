@@ -54,17 +54,12 @@ const setupInputMercaderiaChange = () => {
             console.log(datos);
             for (let i = 1; i <= inputMercaderia.value; i++) {
                 const subTotalCasilla = document.getElementById(`subTotalCasillas${i}`);
-                subTotalCasilla.innerHTML = "";
+                subTotalCasilla.innerHTML = `<b><p id="subTotalLista">SUBTOTAL LISTA: 0</p></b>`;
+                
             }
            console.log(datos);
 
-           const card = document.getElementById("card");
-            let pepe = datos;
-            let salida ="";
-            pepe.forEach(item =>{
-                salida+= `<p>${item.precio}</p>`
-            })
-            card.innerHTML = salida
+           
         })
      
         calcularTotalCasillas();

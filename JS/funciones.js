@@ -112,14 +112,12 @@ const calcularDescuentos = (precioProducto,porcentajeDescuento) =>{
 // Funcion subTotal de casillas individuales
 const calcularSubTotalLista = (precio, unidades, iteracion) => {
     const subTotalCasilla = document.getElementById(`subTotalCasillas${iteracion}`);
-    const subTotalLista = document.getElementById("subTotalLista");
-    
-   
+
     if (subTotalCasilla !== null) {
-      let salida = subTotalCasilla.innerHTML = `<b><p">SUBTOTAL LISTA: $${precio * unidades}</p></b>`;
-      return subTotalLista.innerHTML = salida;
+      return subTotalCasilla.innerHTML = `<b><p">SUBTOTAL LISTA: $${precio * unidades}</p></b>`;
+      
     } else {
-      return subTotalLista.innerHTML = "";
+      return subTotalCasilla.innerHTML = "";
     }
   }
 
