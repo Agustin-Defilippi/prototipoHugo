@@ -51,11 +51,11 @@ const renderContPadre = () => {
         </div>
         <div id="mercaderia" class="mercaderiaDefinida"></div>
         <div class="containerTotal">
-            <div class="total" id="casillasTotal">
+            <div class="total" id="casillasTotalLista">
                 
             </div>
-            <div id="card">
-            
+            <div class="total" id="casillasTotalNeto">
+                
             </div>
         </div>
     </div>`;
@@ -106,7 +106,7 @@ const renderFormulario = (contenedor) =>{
 const calcularDescuentos = (precioProducto,porcentajeDescuento) =>{
     const descuento = (precioProducto * porcentajeDescuento) / 100;
     const precioConDescuento = precioProducto - descuento;
-    return Math.round(precioConDescuento);
+    return (precioConDescuento).toFixed(2);
 }
 
 // Funcion subTotal de casillas individuales
@@ -122,41 +122,51 @@ const calcularSubTotalLista = (precio, unidades, iteracion) => {
   }
 
 // Funcion subTotal de casillas individuales
-/* const calcularSubTotalNeto = (precio,descuentoProducto,iteracion) =>{
+const calcularSubTotalNeto = (precio,descuentoProducto,iteracion,unidades) =>{
     const subTotalCasillaNeto = document.getElementById(`subTotalCasillasNeto${iteracion}`);
-    
-    const subTotalNeto = document.getElementById("subTotalNeto");
 
-    if(subTotalCasillaNeto !== ""){
-        let salida2 = subTotalCasillaNeto.innerHTML = `<b><p>SUBTOTAL NETO: $${calcularDescuentos(precio,descuentoProducto)}</p></b>`;
-        return subTotalNeto.innerHTML= salida2;
+    if(subTotalCasillaNeto !== null){
+
+      return subTotalCasillaNeto.innerHTML = `<b><p>SUBTOTAL NETO: $${calcularDescuentos(precio,descuentoProducto)*unidades}</p></b>`;
     }else{
-        return subTotalNeto.innerHTML =""
+        return subTotalCasillaNeto.innerHTML =""
     }
-} */
+}
+
+const valorPrecioNeto = (precio,descuentoProducto,unidades) =>{
+   return calcularDescuentos(precio,descuentoProducto)*unidades
+}
 
 // Funcion Total de  todas las casillas
-const calcularTotalCasillas = () =>{
-    const totalCasilla = document.getElementById("casillasTotal");
+const calcularTotalPrecioLista = () =>{
+    const totalCasilla = document.getElementById("casillasTotalLista");
     const datosFinales = datos;
 
    let total = datosFinales.reduce((acumulador,item) =>{
      return acumulador+= item.precio * item.unidades
    },0)
-   totalCasilla.innerHTML = `<p>Total Precios Mercaderia: $${total}</p>`
+   totalCasilla.innerHTML = `<p>Total Precios (lista) Mercaderia: $${total}</p>`
+}
+
+const calcularTotalPrecioNeto = () =>{
+    const casillasTotalNeto = document.getElementById("casillasTotalNeto")
+    const datosPrecios = datos
+    let salida =datosPrecios.reduce((acumulador,item) =>{
+        return acumulador+= item.precioNeto
+    },0)
+
+    return casillasTotalNeto.innerHTML = `<p>Total Precios (neto) Mercaderia: $${salida}</p>`
 }
 
 // Funcion Reseto de casillas
 const resetearCasillas = (form,array) =>{
-    
     form.reset();
-
     array.length=0;
-    const totalFuera = document.getElementById("casillasTotal");
-    
-  
-    totalFuera.innerHTML="";
-    
-   
- 
+    const totalLista = document.getElementById("casillasTotalLista");
+    const totalNeto = document.getElementById("casillasTotalNeto")
+    totalLista.innerHTML="";
+    totalNeto.innerHTML="";
+    calcularTotalPrecioLista();
+    calcularTotalPrecioNeto();
 }
+

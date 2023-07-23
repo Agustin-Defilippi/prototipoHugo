@@ -108,14 +108,17 @@
 .containerPadre .containerTotal{
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 30px 0;
 }
 .containerPadre .containerTotal .total{
-    margin: 50px 0;
+    margin: 10px 0;
+    padding: 0 5px;
     background-color: black;
-    color: red;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
 }
 .containerPadre .containerTotal .total p{
     font-size: 1.5em;

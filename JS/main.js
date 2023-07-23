@@ -3,12 +3,13 @@ const contPadre = document.getElementById("containerPadre");
 
 permitirIngreso();
 
-const alamacenarDatos = (nombre,unidades,precio,descuento) =>{
+const alamacenarDatos = (nombre,unidades,precio,descuento,precioNeto) =>{
     const datosMercaderia={
-        nombre : nombre,
+        nombre: nombre,
         unidades: unidades,
         precio: precio,
-        descuento: descuento
+        descuento: descuento,
+        precioNeto : precioNeto
     }
     return datosMercaderia
 }
@@ -38,13 +39,16 @@ const setupInputMercaderiaChange = () => {
                 const precioMercaderia = document.getElementById(`input-precio${i}`).value;
                 const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
 
-                let almacenDatos = alamacenarDatos(nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto);
+                let neto = valorPrecioNeto(precioMercaderia,descuentoProducto,unidadesProducto)
+
+                let almacenDatos = alamacenarDatos(nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
                 datos.push(almacenDatos);
                 calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
-                /* calcularSubTotalNeto(precioMercaderia,descuentoProducto,i) */
-                calcularTotalCasillas();
+                calcularSubTotalNeto(precioMercaderia,descuentoProducto,i,unidadesProducto)
+                calcularTotalPrecioLista();
+                calcularTotalPrecioNeto();
                 console.log(datos);
-             
+                
             }
         });
 
@@ -54,16 +58,16 @@ const setupInputMercaderiaChange = () => {
             console.log(datos);
             for (let i = 1; i <= inputMercaderia.value; i++) {
                 const subTotalCasilla = document.getElementById(`subTotalCasillas${i}`);
+                const subTotalCasillaNeto = document.getElementById(`subTotalCasillasNeto${i}`);
+
                 subTotalCasilla.innerHTML = `<b><p id="subTotalLista">SUBTOTAL LISTA: 0</p></b>`;
-                
+                subTotalCasillaNeto.innerHTML = `<b><p id="subTotalLista">SUBTOTAL NETO: 0</p></b>`;
             }
            console.log(datos);
-
-           
         })
      
-        calcularTotalCasillas();
-        
+        calcularTotalPrecioLista();
+        calcularTotalPrecioNeto();
     });
 };
 
