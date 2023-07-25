@@ -17,13 +17,13 @@ const permitirIngreso = () => {
     usuario.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        if (nombreUsuario.value.toUpperCase() === "HUGO" && contraseñaUsuario.value.toUpperCase() === "HUGOCOLON10") {
+        if (nombreUsuario.value.toUpperCase() === "HUGO" && contraseñaUsuario.value.toUpperCase() === "HUGOCOLON10"){
             usuario.innerHTML = "";
             renderContButtonsEleccion();
             btnCargarProductos();
             btnCalcularProductos();
-       
-        } else {
+            
+        }else {
             const errorIngreso = document.getElementById("errorIngreso");
             errorIngreso.textContent = "Ingreso Erróneo, vuelve a intentar!";
             errorIngreso.classList.add("text-danger");
@@ -35,29 +35,27 @@ const permitirIngreso = () => {
 };
 
 // Funcion cargar productos o calcular productos 
-
 const renderContButtonsEleccion = () =>{
-
     const cargarOcalcular = document.getElementById("cargaProductos");
-
     return cargarOcalcular.innerHTML= 
     ` 
-        <div id="cont-buttons" class="cont-buttons">
-            <div>
-                <button id="btn-calcularProductos" class="btn bg-dark text-warning">Calcular Productos</button>
-            </div>
-            <div>
-                <button id="btn-cargarProductos" class="btn bg-dark text-warning">Cargar Productos</button>
-            </div>
-        </div> `
+    <div id="cont-buttons" class="cont-buttons">
+        <div>
+            <button id="btn-calcularProductos" class="btn bg-dark text-warning">Calcular Productos</button>
+        </div>
+        <div>
+            <button id="btn-cargarProductos" class="btn bg-dark text-warning">Cargar Productos</button>
+        </div>
+    </div> `
 }
 
+// funcion por ahora de prueba
 const cargaStockProductos = () =>{
     const containerProductos = document.getElementById("cargaDeProductos");
-
     containerProductos.innerHTML= "hola"
 }
 
+// Funcion Click button Cargar productos
 const btnCargarProductos = () =>{
     const btnCargar = document.getElementById("btn-cargarProductos");
     const containerButtons = document.getElementById("cargaProductos");
@@ -69,15 +67,30 @@ const btnCargarProductos = () =>{
         containerButtons.className= "heigth-0"
     })
 }
+
+// Funcion Click button Calcular productos
 const btnCalcularProductos = () =>{
     const btnCalcular = document.getElementById("btn-calcularProductos");
     const containerButtons = document.getElementById("cargaProductos");
-  
 
     btnCalcular .addEventListener("click", () =>{
         cargaStockProductos()
         containerButtons.innerHTML = "";
         containerButtons.className= "heigth-0"
+    })
+}
+
+// Funcion volver atras
+const volverAtras = () =>{
+    const btnVolver = document.getElementById("btn-volverAtras");
+    const containerPadre = document.getElementById("containerPadre");
+    const cargarOcalcular = document.getElementById("cargaProductos");
+    btnVolver.addEventListener("click", () =>{
+        containerPadre.innerHTML="";
+        cargarOcalcular.className="containerCargarOcalcular"
+        renderContButtonsEleccion();
+        btnCargarProductos();
+        btnCalcularProductos();
     })
 }
 
@@ -107,6 +120,9 @@ const renderContPadre = () => {
                 
             </div>
         </div>
+    </div>
+    <div class="btn-volver border border-ligth">
+        <button id="btn-volverAtras"class="btn bg-warning">Volver</button>
     </div>`;
 };
 
