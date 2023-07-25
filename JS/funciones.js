@@ -19,8 +19,10 @@ const permitirIngreso = () => {
 
         if (nombreUsuario.value.toUpperCase() === "HUGO" && contraseñaUsuario.value.toUpperCase() === "HUGOCOLON10") {
             usuario.innerHTML = "";
-            contPadre.innerHTML = renderContPadre();
-            setupInputMercaderiaChange();
+            renderContButtonsEleccion();
+            btnCargarProductos();
+            btnCalcularProductos();
+       
         } else {
             const errorIngreso = document.getElementById("errorIngreso");
             errorIngreso.textContent = "Ingreso Erróneo, vuelve a intentar!";
@@ -31,6 +33,53 @@ const permitirIngreso = () => {
         }
     });
 };
+
+// Funcion cargar productos o calcular productos 
+
+const renderContButtonsEleccion = () =>{
+
+    const cargarOcalcular = document.getElementById("cargaProductos");
+
+    return cargarOcalcular.innerHTML= 
+    ` 
+        <div id="cont-buttons" class="cont-buttons">
+            <div>
+                <button id="btn-calcularProductos" class="btn bg-dark text-warning">Calcular Productos</button>
+            </div>
+            <div>
+                <button id="btn-cargarProductos" class="btn bg-dark text-warning">Cargar Productos</button>
+            </div>
+        </div> `
+}
+
+const cargaStockProductos = () =>{
+    const containerProductos = document.getElementById("cargaDeProductos");
+
+    containerProductos.innerHTML= "hola"
+}
+
+const btnCargarProductos = () =>{
+    const btnCargar = document.getElementById("btn-cargarProductos");
+    const containerButtons = document.getElementById("cargaProductos");
+
+    btnCargar.addEventListener("click", () =>{
+        contPadre.innerHTML = renderContPadre();
+        setupInputMercaderiaChange();
+        containerButtons.innerHTML = "";
+        containerButtons.className= "heigth-0"
+    })
+}
+const btnCalcularProductos = () =>{
+    const btnCalcular = document.getElementById("btn-calcularProductos");
+    const containerButtons = document.getElementById("cargaProductos");
+  
+
+    btnCalcular .addEventListener("click", () =>{
+        cargaStockProductos()
+        containerButtons.innerHTML = "";
+        containerButtons.className= "heigth-0"
+    })
+}
 
 //Funcion render del contenedor Padre del Programa
 const renderContPadre = () => {
