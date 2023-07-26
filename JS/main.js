@@ -68,9 +68,17 @@ const setupInputMercaderiaChange = () => {
      
         calcularTotalPrecioLista();
         calcularTotalPrecioNeto();
+        
     });
     volverAtras()
 };
+
+
+
+
+
+
+
 
 
 

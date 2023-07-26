@@ -22,6 +22,7 @@ const permitirIngreso = () => {
             renderContButtonsEleccion();
             btnCargarProductos();
             btnCalcularProductos();
+
             
         }else {
             const errorIngreso = document.getElementById("errorIngreso");
@@ -49,18 +50,52 @@ const renderContButtonsEleccion = () =>{
     </div> `
 }
 
+
+const cargarStock = () => {
+    const formStock = document.getElementById("formStock");
+  
+    formStock.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const valor = document.getElementById("nombreProducto");
+      stockProductos.push(valor.value);
+      console.log("Producto agregado:", stockProductos);
+      console.log("cargarStock ejecutado");
+    });
+    console.log("cargarStock ejecutado");
+};
+
+
 // funcion por ahora de prueba
 const cargaStockProductos = () =>{
     const containerProductos = document.getElementById("cargaDeProductos");
-    containerProductos.innerHTML= "hola"
+    containerProductos.innerHTML=`  <div class="containerPrograma2">
+    <div class="containerForm2">
+        <h1>PROGRAMA MERCADERIA HUGO</h1>
+        <div class="containerForm3">
+            <div class="containerForm4">
+                <div class="form" id="formStock">
+                    <div class="mb-3 mercaderia">
+                        <label class="mb-2"><b>Ingrese un producto a cargar</b></label>
+                        <input type="text" id="nombreProducto" class="input-class">
+                    </div>
+                    <div class="mb-2">
+                        <button id="btn-stock" type="submit" class="btn bg-dark text-warning">Cargar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    containerProductos.className="cargaDeProductos";
+    console.log("cargaStockProductos ejecutado");
 }
 
 // Funcion Click button Cargar productos
-const btnCargarProductos = () =>{
-    const btnCargar = document.getElementById("btn-cargarProductos");
+const btnCalcularProductos = () =>{
+    const btnCalcular = document.getElementById("btn-calcularProductos");
+    
     const containerButtons = document.getElementById("cargaProductos");
 
-    btnCargar.addEventListener("click", () =>{
+    btnCalcular.addEventListener("click", () =>{
         contPadre.innerHTML = renderContPadre();
         setupInputMercaderiaChange();
         containerButtons.innerHTML = "";
@@ -69,11 +104,14 @@ const btnCargarProductos = () =>{
 }
 
 // Funcion Click button Calcular productos
-const btnCalcularProductos = () =>{
-    const btnCalcular = document.getElementById("btn-calcularProductos");
+
+const btnCargarProductos = () =>{
+    
+    const btnCargar = document.getElementById("btn-cargarProductos");
     const containerButtons = document.getElementById("cargaProductos");
 
-    btnCalcular .addEventListener("click", () =>{
+    btnCargar.addEventListener("click", () =>{
+        
         cargaStockProductos()
         containerButtons.innerHTML = "";
         containerButtons.className= "heigth-0"
