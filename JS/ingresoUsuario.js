@@ -41,6 +41,7 @@ const renderContButtonsEleccion = () =>{
     return cargarOcalcular.innerHTML= 
     ` 
     <div id="cont-buttons" class="cont-buttons">
+        <h3>PANEL DE CONTROL</h3>
         <div class="cont-btn-eleccion">
             <button id="btn-calcularProductos" class="btn bg-dark text-warning">Calcular Productos</button>
         

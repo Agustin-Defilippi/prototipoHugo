@@ -233,5 +233,6 @@ const volverAtrasCalcularProducto = () =>{
         renderContButtonsEleccion();
         btnCargarProductos();
         btnCalcularProductos();
+        btnBaseDatos()
     })
 }
