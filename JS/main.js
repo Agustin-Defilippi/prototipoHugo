@@ -70,8 +70,10 @@ const setupInputMercaderiaChange = () => {
         calcularTotalPrecioNeto();
         
     });
-    volverAtras()
+    volverAtrasCalcularProducto();
 };
+
+let stockProductos = [];
 
 
 

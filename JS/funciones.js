@@ -35,6 +35,7 @@ const permitirIngreso = () => {
     });
 };
 
+
 // Funcion cargar productos o calcular productos 
 const renderContButtonsEleccion = () =>{
     const cargarOcalcular = document.getElementById("cargaProductos");
@@ -47,47 +48,144 @@ const renderContButtonsEleccion = () =>{
         <div>
             <button id="btn-cargarProductos" class="btn bg-dark text-warning">Cargar Productos</button>
         </div>
+        <div>
+            <button id="btn-cargarProductos" class="btn bg-dark text-warning">Cargar Productos</button>
+        </div>
     </div> `
 }
 
 
-const cargarStock = () => {
-    const formStock = document.getElementById("formStock");
+
+// Funcion para crear los input de carga de productos
+const crearNuevoCampo = () => {
+    const formElementsDiv = document.getElementById('formElements');
+    
+    const nuevoProductoDiv = document.createElement('div');
   
-    formStock.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const valor = document.getElementById("nombreProducto");
-      stockProductos.push(valor.value);
-      console.log("Producto agregado:", stockProductos);
-      console.log("cargarStock ejecutado");
-    });
-    console.log("cargarStock ejecutado");
+    const nombreInput = document.createElement('input');
+    nombreInput.type = 'text';
+    nombreInput.placeholder = 'Nombre del producto';
+    nombreInput.className="m-1";
+  
+    const precioInput = document.createElement('input');
+    precioInput.type = 'number';
+    precioInput.placeholder = 'Precio';
+    precioInput.className="m-1";
+    
+  
+    const categoriaInput = document.createElement('input');
+    categoriaInput.type = 'text';
+    categoriaInput.placeholder = 'Categoria';
+    categoriaInput.className="m-1";
+  
+    const unidadesInput = document.createElement('input');
+    unidadesInput.type = 'number';
+    unidadesInput.placeholder = 'Unidades';
+    unidadesInput.className="m-1";
+  
+    nuevoProductoDiv.appendChild(nombreInput);
+    nuevoProductoDiv.appendChild(precioInput);
+    nuevoProductoDiv.appendChild(categoriaInput);
+    nuevoProductoDiv.appendChild(unidadesInput);
+  
+    formElementsDiv.appendChild(nuevoProductoDiv);
+}
+
+// Función para cargar el formulario de stock
+const renderFormStock = () => {
+    crearNuevoCampo();
+};
+
+// Funcion eventica para renderizar el formulario infinito
+const agregarCampoOnClick = () => {
+  const botonAgregarCampo = document.getElementById('btn-stock');
+  botonAgregarCampo.addEventListener('click',
+   renderFormStock
+ );
+}
+
+const terminarCargaProducto = () =>{
+    const btnTerminar = document.getElementById("btn-terminar");
+    const formElements = document.getElementById("formElements");
+    
+
+    btnTerminar.addEventListener("click", () =>{
+        formElements.innerHTML="";
+        const formStock = document.getElementById("formStock");
+        formStock.reset();
+        stockProductos.length=0
+        console.log(stockProductos);
+    })
+}
+
+const cargaStockProductos = () => {
+  const containerProductos = document.getElementById("cargaDeProductos");
+  containerProductos.innerHTML = `
+    <div class="containerPrograma2" id="containerPrograma2">
+      <div class="containerForm2">
+        <h1>PROGRAMA MERCADERIA HUGO</h1>
+        <div class="containerForm3">
+          <div class="containerForm4">
+            <h2>Carga tus Productos</h2>   
+            <form class="form" id="formStock">
+              <div id="formElements">
+                
+              </div>
+              <div class="my-2">
+                <button id="btn-stock" type="button" class="btn bg-dark text-warning">Click(+)</button>
+                <button type="submit" class="btn bg-dark text-warning">Cargar</button>
+                <button id="btn-terminar" type="button" class="btn bg-dark text-warning">Resetear</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-volver2 border border-ligth">
+        <button id="btn-volverAtras2"class="btn bg-warning">Volver</button>
+    </div>`;
+
+  containerProductos.className = "cargaDeProductos";
+  console.log("cargaStockProductos ejecutado");
+  agregarCampoOnClick();
+  terminarCargaProducto()
+
+ const formStock = document.getElementById("formStock");
+
+ formStock.addEventListener("submit", (e) => {
+ e.preventDefault();
+ procesarFormulario();
+ });
+
+ volverAtrasCargarProducto()
 };
 
 
-// funcion por ahora de prueba
-const cargaStockProductos = () =>{
-    const containerProductos = document.getElementById("cargaDeProductos");
-    containerProductos.innerHTML=`  <div class="containerPrograma2">
-    <div class="containerForm2">
-        <h1>PROGRAMA MERCADERIA HUGO</h1>
-        <div class="containerForm3">
-            <div class="containerForm4">
-                <div class="form" id="formStock">
-                    <div class="mb-3 mercaderia">
-                        <label class="mb-2"><b>Ingrese un producto a cargar</b></label>
-                        <input type="text" id="nombreProducto" class="input-class">
-                    </div>
-                    <div class="mb-2">
-                        <button id="btn-stock" type="submit" class="btn bg-dark text-warning">Cargar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>`;
-    containerProductos.className="cargaDeProductos";
-    console.log("cargaStockProductos ejecutado");
-}
+
+const procesarFormulario = () => {
+    const formElements = document.getElementById('formElements').children;
+  
+    // productoDiv = variable iteracion 
+    for (const productoDiv of formElements){
+      const nombre = productoDiv.children[0].value;
+      const precio = parseFloat(productoDiv.children[1].value);
+      const categoria= productoDiv.children[2].value;
+      const unidades = parseInt(productoDiv.children[3].value);
+  
+      const producto = {
+        nombre,
+        precio,
+        categoria,
+        unidades,
+      };
+      stockProductos.push(producto)
+    }
+    console.log(stockProductos);
+};
+
+
+
+
 
 // Funcion Click button Cargar productos
 const btnCalcularProductos = () =>{
@@ -118,8 +216,24 @@ const btnCargarProductos = () =>{
     })
 }
 
-// Funcion volver atras
-const volverAtras = () =>{
+
+// Funcion volver atras calcular producto
+const volverAtrasCargarProducto = () =>{
+    const btnVolver = document.getElementById("btn-volverAtras2");
+    const containerPrograma2 = document.getElementById("cargaDeProductos");
+    const cargarOcalcular = document.getElementById("cargaProductos");
+    btnVolver.addEventListener("click", () =>{
+        containerPrograma2.innerHTML="";
+        cargarOcalcular.className="containerCargarOcalcular"
+        renderContButtonsEleccion();
+        btnCargarProductos();
+        btnCalcularProductos();
+    })
+}
+
+
+// Funcion volver atras calcular producto
+const volverAtrasCalcularProducto = () =>{
     const btnVolver = document.getElementById("btn-volverAtras");
     const containerPadre = document.getElementById("containerPadre");
     const cargarOcalcular = document.getElementById("cargaProductos");
