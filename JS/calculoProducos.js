@@ -38,11 +38,19 @@ const renderContPadre = () => {
                 
             </div>
         </div>
+        <div class="mb-2 cont-btnFinalizar" id="cont-btnFinalizar">
+            
+        </div>
     </div>
     <div class="btn-volver border border-ligth">
         <button id="btn-volverAtras"class="btn bg-warning">Volver</button>
     </div>`;
 };
+
+const mostrarBtnFinalizar = () =>{
+    const contBtnFinalizar = document.getElementById("cont-btnFinalizar");
+    return contBtnFinalizar.innerHTML = `<button id="btn-volverAtras" class="btn bg-danger text-light">Finalizar</button>`
+}
 
 const setupInputMercaderiaChange = () => {
     const inputMercaderia = document.getElementById("mercaderiaNum");
@@ -75,6 +83,7 @@ const setupInputMercaderiaChange = () => {
                 calcularSubTotalNeto(precioMercaderia,descuentoProducto,i,unidadesProducto)
                 calcularTotalPrecioLista();
                 calcularTotalPrecioNeto();
+                mostrarBtnFinalizar();
                 console.log(datos);
                 
             }
@@ -92,11 +101,9 @@ const setupInputMercaderiaChange = () => {
                 subTotalCasillaNeto.innerHTML = `<b><p id="subTotalLista">SUBTOTAL NETO: 0</p></b>`;
             }
            console.log(datos);
+           calcularTotalPrecioLista();
+           calcularTotalPrecioNeto();
         })
-     
-        calcularTotalPrecioLista();
-        calcularTotalPrecioNeto();
-        
     });
     volverAtrasCalcularProducto();
 };

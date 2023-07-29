@@ -36,7 +36,7 @@ const renderBaseDatos = () =>{
       <div class="containerForm5">
         
         <div class="containerForm6">
-            <table class="table  table-striped">
+            <table class="table table-striped border border-dark">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -44,9 +44,10 @@ const renderBaseDatos = () =>{
                   <th scope="col">Categoria</th>
                   <th scope="col">Precio</th>
                   <th scope="col">Stock</th>
+                  <th scope="col">Editar</th>
                 </tr>
               </thead>
-              <tbody id="productosBaseDatos">
+              <tbody id="productosBaseDatos" class="">
        
               </tbody>
             </table>
@@ -54,7 +55,7 @@ const renderBaseDatos = () =>{
     
       </div>
       <div class="btn-resetBase">
-        <button id="btn-resetBase"class="btn bg-danger text-light">Resetear Base Datos</button>
+        <button id="btn-resetBase"class="btn bg-danger text-light" type="button">Resetear Base Datos</button>
       </div>
     </div>
   </div>
@@ -70,13 +71,14 @@ const renderBaseDatos = () =>{
 const renderListaBaseDatos = (productos) =>{
   let salidaProd ="";
   productos.forEach((item,i) =>{
-    const posicion = i +1 ;
+    const posicion = i ;
     salidaProd+= `<tr>
     <th scope="row">${posicion}</th>
     <td>${item.nombre}</td>
     <td>${item.categoria}</td>
     <td>${item.precio}</td>
     <td>${item.unidades}</td>
+    <td><button class="btn bg-danger text-light">Eliminar</button></td>
     </tr>`
   })
   return salidaProd;
@@ -100,6 +102,7 @@ const borrarBaseDatos = () =>{
     
     localStorage.removeItem("baseDatos");
     const contenedorBaseDatos = document.getElementById("productosBaseDatos");
-    contenedorBaseDatos.innerHTML="";
+    contenedorBaseDatos.innerHTML = "";
+    console.log("Base de datos reseteada.");
   })
 }

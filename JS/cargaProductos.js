@@ -87,9 +87,9 @@ const cargaStockProductos = () => {
               <div id="formElements">
                 
               </div>
-              <div class="my-2">
-                <button id="btn-stock" type="button" class="btn bg-dark text-warning">Click(+)</button>
-                <button type="submit" class="btn bg-dark text-warning">Cargar</button>
+              <div class="my-2 botonesCargar">
+                <button id="btn-stock" type="button" class="btn bg-dark text-warning">Producto(+)</button>
+                <button type="submit" class="btn bg-dark text-warning">Enviar(+)</button>
                 <button id="btn-terminar" type="button" class="btn bg-dark text-warning">Resetear</button>
               </div>
             </form>
@@ -100,7 +100,7 @@ const cargaStockProductos = () => {
     <div class="btn-volver2 border border-ligth">
         <button id="btn-volverAtras2"class="btn bg-warning">Volver</button>
     </div>`;
-
+    
   containerProductos.className = "cargaDeProductos";
   console.log("cargaStockProductos ejecutado");
   agregarCampoOnClick();
@@ -117,28 +117,36 @@ const cargaStockProductos = () => {
 };
 
 const procesarFormulario = () => {
-    const formElements = document.getElementById('formElements').children;
-  
-    // productoDiv = variable iteracion 
-    for (const productoDiv of formElements){
-      const nombre = productoDiv.children[0].value;
-      const precio = parseFloat(productoDiv.children[1].value);
-      const categoria= productoDiv.children[2].value;
-      const unidades = parseInt(productoDiv.children[3].value);
-  
-      const producto = {
-        nombre,
-        precio,
-        categoria,
-        unidades,
-        
-      };
-      stockProductos.push(producto);
-     
-    }
-    localStorage.setItem("baseDatos",JSON.stringify(stockProductos));
-    console.log( localStorage.setItem("baseDatos",JSON.stringify(stockProductos)));
-    console.log(stockProductos);
+  const formElements = document.getElementById('formElements').children;
+  const nuevosProductos = [];
+
+  // Iteramos sobre los elementos del formulario
+  for (const productoDiv of formElements){
+    const nombre = productoDiv.children[0].value;
+    const precio = parseFloat(productoDiv.children[1].value);
+    const categoria = productoDiv.children[2].value;
+    const unidades = parseInt(productoDiv.children[3].value);
+
+    const producto = {
+      nombre,
+      precio,
+      categoria,
+      unidades,
+    };
+
+    nuevosProductos.push(producto);
+  }
+
+  // Obtenemos los productos previamente almacenados en el localStorage
+  const productosPrevios = JSON.parse(localStorage.getItem("baseDatos")) || [];
+
+  // Combinamos los productos previos con los nuevos productos
+  const productosCombinados = [...productosPrevios, ...nuevosProductos];
+
+  // Guardamos todos los productos en el localStorage
+  localStorage.setItem("baseDatos", JSON.stringify(productosCombinados));
+
+  console.log(productosCombinados);
 };
 
 // Funcion volver atras cargar producto

@@ -179,7 +179,12 @@
     font-size: 1.5em;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
-
+.containerPadre .cont-btnFinalizar{
+    width: 100%;
+} 
+.containerPadre .cont-btnFinalizar button{
+    width: 20%;
+}
 .btn-calcular{
     width: 10%;
 }
@@ -219,9 +224,18 @@
 .cargaDeProductos .containerPrograma2 .containerForm2 .containerForm3 .containerForm4{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items:space-between;
     margin-top: 15px;
     width: 100%;
+}
+.cargaDeProductos .containerPrograma2 .containerForm2 .containerForm3 .containerForm4 h2{
+    background-color: wheat;
+    color: black;
+}
+.cargaDeProductos .containerPrograma2 .containerForm2 .containerForm3 .containerForm4 form .botonesCargar{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .contBaseDatos{
@@ -260,6 +274,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: wheat;
 }
 .contBaseDatos .containerPrograma3 .containerForm3 h1{
     background-color: black;
@@ -269,9 +284,15 @@
 }
 .contBaseDatos .containerPrograma3 .containerForm3 .containerForm5{
     width: 90%;
-    border: solid 2px black;
+   
     margin: 20px 0;
+    
 }
+.contBaseDatos .containerPrograma3 .containerForm3 .containerForm5 .containerForm6{
+    font-size: 1.5em;
+   
+}
+
 .contBaseDatos .containerPrograma3 .containerForm3 .btn-resetBase{
     width: auto;
     margin-bottom: 5px;
