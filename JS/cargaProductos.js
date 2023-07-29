@@ -122,7 +122,7 @@ const procesarFormulario = () => {
 
   // Iteramos sobre los elementos del formulario
   for (const productoDiv of formElements){
-    const nombre = productoDiv.children[0].value;
+    const nombre = productoDiv.children[0].value.trim().toUpperCase();
     const precio = parseFloat(productoDiv.children[1].value);
     const categoria = productoDiv.children[2].value;
     const unidades = parseInt(productoDiv.children[3].value);

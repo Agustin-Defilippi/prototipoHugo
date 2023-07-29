@@ -62,10 +62,10 @@ const renderBaseDatos = () =>{
   <div class="btn-volver3 border border-ligth">
       <button id="btn-volverAtras3"class="btn bg-warning">Volver</button>
   </div>`
-  volverAtrasBaseDatos()
+  volverAtrasBaseDatos();
   console.log("base de datos ok");
   renderProductosBaseDatos();
-  borrarBaseDatos()
+  borrarBaseDatos();
 
 }
 
@@ -80,20 +80,23 @@ const renderListaBaseDatos = (productos) =>{
     <td>${posicion}</td>
     <td>${item.nombre}</td>
     <td>${item.categoria}</td>
-    <td>${item.precio}</td>
+    <td>$${item.precio} ARS</td>
     <td>${item.unidades}</td>
     <td><button type="button" id=${posicion} class="btn bg-danger text-light">Eliminar</button></td>
     `
     
-    salidaProd.className="w-100"
+    salidaProd.className = "w-100";
     contenedorBaseDatos.appendChild(salidaProd);
     const btnEliminar = document.getElementById(`${posicion}`);
-    btnEliminar.addEventListener("click", () =>{
+    btnEliminar.addEventListener("click", () => {
       console.log("btn activado eliminar");
-    })
+      productos.splice(posicion, 1);
+      contenedorBaseDatos.innerHTML = ""; //limpieza contenido tabla
+      renderListaBaseDatos(productos); // volvemos a renderizar los productos 
+      localStorage.setItem("baseDatos", JSON.stringify(productos)); //Actualizamos LocalStorage
+      console.log(productos);
+    })   
   })
-  
-  
 }
 
 

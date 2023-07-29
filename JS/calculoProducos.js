@@ -47,10 +47,35 @@ const renderContPadre = () => {
     </div>`;
 };
 
-const mostrarBtnFinalizar = () =>{
+const mostrarBtnFinalizar = () => {
     const contBtnFinalizar = document.getElementById("cont-btnFinalizar");
-    return contBtnFinalizar.innerHTML = `<button id="btn-volverAtras" class="btn bg-danger text-light">Finalizar</button>`
-}
+    contBtnFinalizar.innerHTML = `<button id="btn-finalizar" class="btn bg-danger text-light">Finalizar</button>`;
+    const inputMercaderia = document.getElementById("mercaderiaNum");
+    const btnFinalizar = document.getElementById("btn-finalizar");
+  
+    btnFinalizar.addEventListener("click", () => {
+      const prodBasedeDatos = JSON.parse(localStorage.getItem("baseDatos"));
+  
+      for (let i = 1; i <= inputMercaderia.value; i++) {
+        const nombre = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
+        const productoUnidades = parseInt(document.getElementById(`input-unidades${i}`).value);
+  
+        console.log("btn-finalizar sirve");
+        console.log(prodBasedeDatos);
+        let pepo = prodBasedeDatos.find((element) => element.nombre === nombre);
+  
+        if (pepo) {
+          pepo.unidades -= productoUnidades;
+        }
+  
+        console.log("Producto encontrado:", pepo)
+      }
+  
+      // Actualizar el LocalStorage con los cambios realizados en las unidades
+      localStorage.setItem("baseDatos", JSON.stringify(prodBasedeDatos));
+    });
+};
+  
 
 const setupInputMercaderiaChange = () => {
     const inputMercaderia = document.getElementById("mercaderiaNum");
@@ -70,8 +95,8 @@ const setupInputMercaderiaChange = () => {
         formulario.addEventListener("submit", (e) => {
             e.preventDefault();
             for (let i = 1; i <= inputMercaderia.value; i++) {
-                const nombreMercaderia = document.getElementById(`input-nombre${i}`).value;
-                const unidadesProducto = document.getElementById(`input-unidades${i}`).value;
+                const nombreMercaderia = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
+                const unidadesProducto =  parseInt(document.getElementById(`input-unidades${i}`).value);
                 const precioMercaderia = document.getElementById(`input-precio${i}`).value;
                 const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
 
