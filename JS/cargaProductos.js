@@ -67,10 +67,10 @@ const terminarCargaProducto = () =>{
 
     btnTerminar.addEventListener("click", () =>{
         formElements.innerHTML="";
-        const formStock = document.getElementById("formStock");
-        formStock.reset();
-        stockProductos.length=0
+        /* const formStock = document.getElementById("formStock");
+        formStock.reset(); */
         console.log(stockProductos);
+        agregarCampoOnClick()
     })
 }
 
@@ -82,7 +82,7 @@ const cargaStockProductos = () => {
         <h1>PROGRAMA MERCADERIA HUGO</h1>
         <div class="containerForm3">
           <div class="containerForm4">
-            <h2>Carga tus Productos</h2>   
+            <h2>Cargar Productos</h2>   
             <form class="form" id="formStock">
               <div id="formElements">
                 
@@ -131,9 +131,13 @@ const procesarFormulario = () => {
         precio,
         categoria,
         unidades,
+        
       };
-      stockProductos.push(producto)
+      stockProductos.push(producto);
+     
     }
+    localStorage.setItem("baseDatos",JSON.stringify(stockProductos));
+    console.log( localStorage.setItem("baseDatos",JSON.stringify(stockProductos)));
     console.log(stockProductos);
 };
 

@@ -80,7 +80,7 @@
     align-items: center;
 }
 .containerPadre .btn-volver button{
-    width: 10%;
+    width: 8%;
     padding: 8px;
     color: black;
 }
@@ -250,7 +250,7 @@
     align-items: center;
 }
 .contBaseDatos .btn-volver3 button{
-    width: 10%;
+    width: 8%;
     padding: 8px;
     color: black;
 }
@@ -266,4 +266,13 @@
     color: white;
     text-align: center;
     width: 100%;
+}
+.contBaseDatos .containerPrograma3 .containerForm3 .containerForm5{
+    width: 90%;
+    border: solid 2px black;
+    margin: 20px 0;
+}
+.contBaseDatos .containerPrograma3 .containerForm3 .btn-resetBase{
+    width: auto;
+    margin-bottom: 5px;
 }

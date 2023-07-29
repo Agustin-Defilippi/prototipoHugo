@@ -4,4 +4,5 @@ const contPadre = document.getElementById("containerPadre");
 permitirIngreso();
 
 const datos = []
-const stockProductos = [];
+let stockProductos = JSON.parse(localStorage.getItem('baseDatos')) || [];
+
