@@ -47,7 +47,7 @@ const renderBaseDatos = () =>{
                   <th scope="col">Editar</th>
                 </tr>
               </thead>
-              <tbody id="productosBaseDatos" class="">
+              <tbody id="productosBaseDatos" class="w-100">
        
               </tbody>
             </table>
@@ -66,31 +66,45 @@ const renderBaseDatos = () =>{
   console.log("base de datos ok");
   renderProductosBaseDatos();
   borrarBaseDatos()
+
 }
 
+
 const renderListaBaseDatos = (productos) =>{
-  let salidaProd ="";
+  const contenedorBaseDatos = document.getElementById("productosBaseDatos");
+  
   productos.forEach((item,i) =>{
+    const salidaProd = document.createElement("tr")
     const posicion = i ;
-    salidaProd+= `<tr>
-    <th scope="row">${posicion}</th>
+    salidaProd.innerHTML= `
+    <td>${posicion}</td>
     <td>${item.nombre}</td>
     <td>${item.categoria}</td>
     <td>${item.precio}</td>
     <td>${item.unidades}</td>
-    <td><button class="btn bg-danger text-light">Eliminar</button></td>
-    </tr>`
+    <td><button type="button" id=${posicion} class="btn bg-danger text-light">Eliminar</button></td>
+    `
+    
+    salidaProd.className="w-100"
+    contenedorBaseDatos.appendChild(salidaProd);
+    const btnEliminar = document.getElementById(`${posicion}`);
+    btnEliminar.addEventListener("click", () =>{
+      console.log("btn activado eliminar");
+    })
   })
-  return salidaProd;
+  
+  
 }
+
+
 
 const renderProductosBaseDatos = () =>{
   const productosCargados = JSON.parse(localStorage.getItem("baseDatos"));
   const contenedorBaseDatos = document.getElementById("productosBaseDatos")
 
   if(productosCargados && productosCargados.length > 0){
-   let renderizadoProductos= renderListaBaseDatos(productosCargados);
-    return contenedorBaseDatos.innerHTML = renderizadoProductos
+    
+    return renderListaBaseDatos(productosCargados);
   }else{
     return contenedorBaseDatos.innerHTML = "";
   }

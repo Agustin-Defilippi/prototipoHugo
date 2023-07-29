@@ -142,7 +142,7 @@ const procesarFormulario = () => {
 
   // Combinamos los productos previos con los nuevos productos
   const productosCombinados = [...productosPrevios, ...nuevosProductos];
-
+  
   // Guardamos todos los productos en el localStorage
   localStorage.setItem("baseDatos", JSON.stringify(productosCombinados));
 
