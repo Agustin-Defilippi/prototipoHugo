@@ -126,9 +126,6 @@ const renderizarPedido = () =>{
 
   const arrayFiltradoCliente = pedidos.filter(item => item.nombrePedido === inputNombreCliente.value.trim().toUpperCase());
 
-  
- 
-  
   arrayFiltradoCliente.forEach((item,i) => {
        
     const contenedorMisPedidos = document.createElement("tr");

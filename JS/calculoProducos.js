@@ -14,7 +14,7 @@ const btnCalcularProductos = () =>{
 
 //Funcion render del contenedor Padre del Programa
 const renderContPadre = () => {
-    return `
+   return `
     <div class="containerPrograma">
         <div class="containerForm1">
             <h1>PROGRAMA MERCADERIA HUGO</h1>
@@ -22,7 +22,7 @@ const renderContPadre = () => {
                 <div class="containerForm">
                     <div class="form">
                         <div class="mb-3 mercaderia">
-                            <label class="mb-2"><b>Ingrese Nombre Destinatario</b></label>
+                            <label class="mb-2"><b>Ingrese Nombre y apellido Cliente</b></label>
                             <input type="text" id="nombreDestinatario" placeholder="nombre" class="input-class mb-3">
 
                             <label class="mb-2"><b>Ingrese numero de Mercaderia a evaluar</b></label>
@@ -48,12 +48,13 @@ const renderContPadre = () => {
     <div class="btn-volver border border-ligth">
         <button id="btn-volverAtras"class="btn bg-warning">Volver</button>
     </div>`;
+    
 };
 
 
 const mostrarBtnFinalizar = () => {
     const contBtnFinalizar = document.getElementById("cont-btnFinalizar");
-    contBtnFinalizar.innerHTML = `<button id="btn-finalizar" class="btn bg-danger text-light">Finalizar</button>`;
+    contBtnFinalizar.innerHTML = `<button id="btn-finalizar" class="btn bg-danger text-light">Descontar Stock</button>`;
     const inputMercaderia = document.getElementById("mercaderiaNum");
     const btnFinalizar = document.getElementById("btn-finalizar");
   
@@ -85,60 +86,69 @@ const mostrarBtnFinalizar = () => {
 
 const setupInputMercaderiaChange = () => {
     const inputMercaderia = document.getElementById("mercaderiaNum");
+    const inputNombreCliente1 = document.getElementById("nombreDestinatario");
 
-    inputMercaderia.addEventListener("change", () => {
-        const mercaderia = document.getElementById("mercaderia");
-        mercaderia.innerHTML = "";
-        let cantidadMercaderia = document.createElement("div");
-
-        renderContenedoresMercaderia(inputMercaderia.value,cantidadMercaderia);
-        renderFormulario(cantidadMercaderia);
-       
-        mercaderia.appendChild(cantidadMercaderia);
-
-        const formulario = document.getElementById("formulario");
-
-        formulario.addEventListener("submit", (e) => {
-            e.preventDefault();
-            for (let i = 1; i <= inputMercaderia.value; i++) {
-                const nombreMercaderia = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
-                const unidadesProducto =  parseInt(document.getElementById(`input-unidades${i}`).value);
-                const precioMercaderia = document.getElementById(`input-precio${i}`).value;
-                const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
-
-                const nombreDestinatario = document.getElementById("nombreDestinatario").value.trim().toUpperCase();
-
-                let neto = valorPrecioNeto(precioMercaderia,descuentoProducto,unidadesProducto)
-
-                let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
-                datos.push(almacenDatos);
-                localStorage.setItem("misPedidos",JSON.stringify(datos))
-                calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
-                calcularSubTotalNeto(precioMercaderia,descuentoProducto,i,unidadesProducto)
-                calcularTotalPrecioLista();
-                calcularTotalPrecioNeto();
-                mostrarBtnFinalizar();
+   
+        
+        inputMercaderia.addEventListener("change", () => {
+            if(inputNombreCliente1.value !== "" && (isNaN(inputNombreCliente1.value))){
+                const mercaderia = document.getElementById("mercaderia");
+            mercaderia.innerHTML = "";
+            let cantidadMercaderia = document.createElement("div");
+    
+            renderContenedoresMercaderia(inputMercaderia.value,cantidadMercaderia);
+            renderFormulario(cantidadMercaderia);
+           
+            mercaderia.appendChild(cantidadMercaderia);
+    
+            const formulario = document.getElementById("formulario");
+    
+            formulario.addEventListener("submit", (e) => {
+                e.preventDefault();
+                for (let i = 1; i <= inputMercaderia.value; i++) {
+                    const nombreMercaderia = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
+                    const unidadesProducto =  parseInt(document.getElementById(`input-unidades${i}`).value);
+                    const precioMercaderia = document.getElementById(`input-precio${i}`).value;
+                    const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
+    
+                    const nombreDestinatario = document.getElementById("nombreDestinatario").value.trim().toUpperCase();
+    
+                    let neto = valorPrecioNeto(precioMercaderia,descuentoProducto,unidadesProducto)
+    
+                    let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
+                    datos.push(almacenDatos);
+                    localStorage.setItem("misPedidos",JSON.stringify(datos))
+                    calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
+                    calcularSubTotalNeto(precioMercaderia,descuentoProducto,i,unidadesProducto)
+                    calcularTotalPrecioLista();
+                    calcularTotalPrecioNeto();
+                    mostrarBtnFinalizar();
+                    console.log(datos);
+                    
+                }
+            });
+    
+            const btnReset = document.getElementById("btn-reset");
+            btnReset.addEventListener("click", () =>{
+                resetearCasillas(formulario,datos)
                 console.log(datos);
-                
+                for (let i = 1; i <= inputMercaderia.value; i++) {
+                    const subTotalCasilla = document.getElementById(`subTotalCasillas${i}`);
+                    const subTotalCasillaNeto = document.getElementById(`subTotalCasillasNeto${i}`);
+    
+                    subTotalCasilla.innerHTML = `<b><p id="subTotalLista">SUBTOTAL LISTA: 0</p></b>`;
+                    subTotalCasillaNeto.innerHTML = `<b><p id="subTotalLista">SUBTOTAL NETO: 0</p></b>`;
+                }
+               console.log(datos);
+               calcularTotalPrecioLista();
+               calcularTotalPrecioNeto();
+            })
             }
+            
         });
+    
 
-        const btnReset = document.getElementById("btn-reset");
-        btnReset.addEventListener("click", () =>{
-            resetearCasillas(formulario,datos)
-            console.log(datos);
-            for (let i = 1; i <= inputMercaderia.value; i++) {
-                const subTotalCasilla = document.getElementById(`subTotalCasillas${i}`);
-                const subTotalCasillaNeto = document.getElementById(`subTotalCasillasNeto${i}`);
-
-                subTotalCasilla.innerHTML = `<b><p id="subTotalLista">SUBTOTAL LISTA: 0</p></b>`;
-                subTotalCasillaNeto.innerHTML = `<b><p id="subTotalLista">SUBTOTAL NETO: 0</p></b>`;
-            }
-           console.log(datos);
-           calcularTotalPrecioLista();
-           calcularTotalPrecioNeto();
-        })
-    });
+   
     volverAtrasCalcularProducto();
 };
 
