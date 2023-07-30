@@ -22,6 +22,9 @@ const renderContPadre = () => {
                 <div class="containerForm">
                     <div class="form">
                         <div class="mb-3 mercaderia">
+                            <label class="mb-2"><b>Ingrese Nombre Destinatario</b></label>
+                            <input type="text" id="nombreDestinatario" placeholder="nombre" class="input-class mb-3">
+
                             <label class="mb-2"><b>Ingrese numero de Mercaderia a evaluar</b></label>
                             <input type="text" id="mercaderiaNum" placeholder="numero" class="input-class">
                         </div>
@@ -103,9 +106,11 @@ const setupInputMercaderiaChange = () => {
                 const precioMercaderia = document.getElementById(`input-precio${i}`).value;
                 const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
 
+                const nombreDestinatario = document.getElementById("nombreDestinatario").value.trim().toUpperCase();
+
                 let neto = valorPrecioNeto(precioMercaderia,descuentoProducto,unidadesProducto)
 
-                let almacenDatos = alamacenarDatos(nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
+                let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
                 datos.push(almacenDatos);
                 localStorage.setItem("misPedidos",JSON.stringify(datos))
                 calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
@@ -179,8 +184,10 @@ const renderFormulario = (contenedor) =>{
     </form>`;
 }
 
-const alamacenarDatos = (nombre,unidades,precio,descuento,precioNeto) =>{
+const alamacenarDatos = (nombreDestinatario,nombre,unidades,precio,descuento,precioNeto) =>{
+
     const datosMercaderia={
+        nombrePedido: nombreDestinatario,
         nombre: nombre,
         unidades: unidades,
         precio: precio,

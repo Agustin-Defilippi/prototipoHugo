@@ -345,9 +345,13 @@
 .contMisPedidos .containerPrograma4 .containerForm4 .containerForm7{
     width: 90%;
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contMisPedidos .containerPrograma4 .containerForm4 .containerForm7 .containerForm8{
+   
     font-size: 1.5em;
     width: 100%;
 }
@@ -357,6 +361,16 @@
     margin-bottom: 5px;
     
 }
+
+.contMisPedidos .containerPrograma4 .containerForm4 .containerForm7 .cont-input-cliente{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border: solid 2px black;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+}
+
 
 .pdf-style-2{
     width: 100%;
