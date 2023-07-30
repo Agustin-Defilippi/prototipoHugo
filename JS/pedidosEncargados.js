@@ -29,31 +29,34 @@ const volverAtrasMisPedidos= () =>{
 const renderMisPedidos = () =>{
     const contMisPedidos = document.getElementById("contMisPedidos");
 
-    contMisPedidos.innerHTML= `<div class="containerPrograma4" id="containerPrograma4">
-    <div class="containerForm4">
-      <h1>MIS PEDIDOS</h1>
-      <div class="containerForm7">
+    contMisPedidos.innerHTML= `<div  class="containerPrograma4" id="containerPrograma4">
+    <div  class="containerForm4">
+      <div id="misPedidosPdf" class="containerForm4">
+        <h1>MIS PEDIDOS</h1>
+        <div class="containerForm7">
+          
+          <div class="containerForm8 pdf-style" id="misPdf table table-striped">
+              <table    class="table table-striped border border-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Unidades</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Bonificacion</th>
+                    <th scope="col">SubTotal</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="misPedidos" class="w-100">
         
-        <div class="containerForm8">
-            <table class="table table-striped border border-dark">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Producto</th>
-                  <th scope="col">Unidades</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Bonificacion</th>
-                  <th scope="col">SubTotal</th>
-                  <th scope="col">Total</th>
-                </tr>
-              </thead>
-              <tbody id="misPedidos" class="w-100">
-       
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+          </div>
+      
         </div>
-    
       </div>
+      
       <div class="btn-resetBase">
         <button id="btn-pdf"class="btn bg-danger text-light" type="button">Descargar PDF</button>
       </div>
@@ -66,7 +69,24 @@ const renderMisPedidos = () =>{
   const btnPdf = document.getElementById("btn-pdf")
 
     btnPdf.addEventListener("click", () =>{
-    descargarPDF("misPedidos")
+      Toastify({
+
+        text: "PDF DESCARGADO, ENCUENTRALO EN LA CARPETA DESCARGAS!",
+        backgroundColor:"red",
+        textColor:"black",
+        duration: 3000, 
+        gravity: "bottom", 
+        position: "center",
+        style: {
+          color:"white",
+        },
+        
+      }).showToast();
+
+      setTimeout(() => {
+        descargarPDF("misPedidosPdf"); 
+      }, 3000);
+     
     })
 }
 
@@ -86,7 +106,7 @@ const renderizarPedido = () =>{
         <td>$${item.precio * item.unidades} ARS</td>
         <td>$${calcularDescuentos(item.precio,item.descuento)* item.unidades} ARS</td>
       `
-
+         
         misPedidos.appendChild(contenedorMisPedidos);
     });
 }
@@ -98,14 +118,50 @@ const descargarPDF = (x) => {
   
     // Configuración opcional para el tamaño y orientación del PDF
     const options = {
-      margin: 10,
-      filename: "productos.pdf",
+      margin: 15,
+      filename: "PedidosHUGO.pdf",
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { scale: 2,className:"pdf-style"},
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      
     };
-  
+
     // Utilizar html2pdf.js para generar el PDF
     html2pdf().from(element).set(options).save();
 }; 
-  
+   
+
+/* const descargarPDF = (className) => {
+  // Crear una copia del contenido para no modificar el HTML original
+  const element = document.createElement("div");
+  const originalContent = document.getElementsByClassName(className);
+
+  for (let i = 0; i < originalContent.length; i++) {
+    const clonedNode = originalContent[i].cloneNode(true);
+    element.appendChild(clonedNode);
+  }
+
+  // Configuración opcional para el tamaño y orientación del PDF
+  const options = {
+    margin: 15,
+    filename: "PedidosHUGO.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2},
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+  };
+
+  // Aplicar estilos en línea a los elementos clonados
+  const elements = element.getElementsByClassName(className);
+
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].style.color = "black";
+    elements[i].style.fontSize = "20px";
+    elements[i].style.border = "black solid 2px";
+    elements[i].style.fontFamily = "'Times New Roman', Times, serif";
+   
+    // Agrega más estilos según sea necesario
+  }
+
+  // Utilizar html2pdf.js para generar el PDF
+  html2pdf().from(element).set(options).save();
+}; */
