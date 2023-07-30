@@ -47,6 +47,7 @@ const renderContPadre = () => {
     </div>`;
 };
 
+
 const mostrarBtnFinalizar = () => {
     const contBtnFinalizar = document.getElementById("cont-btnFinalizar");
     contBtnFinalizar.innerHTML = `<button id="btn-finalizar" class="btn bg-danger text-light">Finalizar</button>`;
@@ -55,6 +56,7 @@ const mostrarBtnFinalizar = () => {
   
     btnFinalizar.addEventListener("click", () => {
       const prodBasedeDatos = JSON.parse(localStorage.getItem("baseDatos"));
+      
   
       for (let i = 1; i <= inputMercaderia.value; i++) {
         const nombre = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
@@ -69,11 +71,12 @@ const mostrarBtnFinalizar = () => {
         }
   
         console.log("Producto encontrado:", pepo)
+      
       }
-  
-      // Actualizar el LocalStorage con los cambios realizados en las unidades
+      
       localStorage.setItem("baseDatos", JSON.stringify(prodBasedeDatos));
     });
+    
 };
   
 
@@ -104,6 +107,7 @@ const setupInputMercaderiaChange = () => {
 
                 let almacenDatos = alamacenarDatos(nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
                 datos.push(almacenDatos);
+                localStorage.setItem("misPedidos",JSON.stringify(datos))
                 calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
                 calcularSubTotalNeto(precioMercaderia,descuentoProducto,i,unidadesProducto)
                 calcularTotalPrecioLista();
@@ -265,6 +269,7 @@ const volverAtrasCalcularProducto = () =>{
         renderContButtonsEleccion();
         btnCargarProductos();
         btnCalcularProductos();
-        btnBaseDatos()
+        btnBaseDatos();
+        btnCargarPedidos();
     })
 }

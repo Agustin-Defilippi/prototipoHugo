@@ -3,6 +3,6 @@ const contPadre = document.getElementById("containerPadre");
 
 permitirIngreso();
 
-const datos = []
+const datos = JSON.parse(localStorage.getItem('misPedidos')) || []
 let stockProductos = JSON.parse(localStorage.getItem('baseDatos')) || [];
 

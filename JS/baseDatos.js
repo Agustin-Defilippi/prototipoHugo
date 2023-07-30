@@ -23,7 +23,7 @@ const volverAtrasBaseDatos= () =>{
         btnBaseDatos();
         btnCargarProductos();
         btnCalcularProductos();
-    
+        btnCargarPedidos();
     })
 }
 

@@ -294,3 +294,65 @@
     width: auto;
     margin-bottom: 5px;
 }
+
+.contMisPedidos{
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.contMisPedidos .containerPrograma4{
+    border: solid 2px black;
+    height: auto;
+    width: 70%;
+}
+
+.contMisPedidos .btn-volver4{
+    width: 70%;
+    height: 60px;
+    margin-top: 25px;
+    border: 2px solid ;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contMisPedidos .btn-volver4 button{
+    width: 8%;
+    padding: 8px;
+    color: black;
+}
+
+.contMisPedidos .containerPrograma4 .containerForm4{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: wheat; */
+}
+.contMisPedidos .containerPrograma4 .containerForm4 h1{
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.contMisPedidos .containerPrograma4 .containerForm4 .containerForm7{
+    width: 90%;
+    margin: 20px 0;
+}
+
+.contMisPedidos .containerPrograma4 .containerForm4 .containerForm7 .containerForm8{
+    font-size: 1.5em;
+    width: 100%;
+}
+
+.contMisPedidos .containerPrograma4 .containerForm4 .btn-resetBase{
+    width: auto;
+    margin-bottom: 5px;
+}

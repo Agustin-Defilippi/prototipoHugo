@@ -160,6 +160,7 @@ const volverAtrasCargarProducto = () =>{
         renderContButtonsEleccion();
         btnCargarProductos();
         btnCalcularProductos();
-        btnBaseDatos()
+        btnBaseDatos();
+        btnCargarPedidos();
     })
 }
