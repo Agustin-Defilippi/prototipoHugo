@@ -41,6 +41,9 @@ const renderMisPedidos = () =>{
               <label class="mb-2"><b>Ingrese Nombre Cliente</b></label>
               <input type="text" id="clienteNombre" placeholder="nombre" class="input-class mb-3">
 
+              <label class="mb-2"><b>Ingrese numero pedido</b></label>
+              <input type="number" id="posicionPedido" placeholder="numero Pedido" class="input-class mb-3">
+
             </div>
 
             <div id="contenedores"class="containerForm8 pdf-style" id="misPdf table table-striped">
@@ -99,6 +102,7 @@ const renderContenedores = () =>{
     <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col">ID</th>
         <th scope="col">Producto</th>
         <th scope="col">Unidades</th>
         <th scope="col">Precio</th>
@@ -118,30 +122,70 @@ const renderContenedores = () =>{
 }
 
 
-const renderizarPedido = () =>{
+const renderizarPedido = () => {
   const pedidos = datos;
   console.log(pedidos);
   const inputNombreCliente = document.getElementById("clienteNombre");
+  const inputPosicion = document.getElementById("posicionPedido");
   const misPedidos = document.getElementById("misPedidos");
 
   const arrayFiltradoCliente = pedidos.filter(item => item.nombrePedido === inputNombreCliente.value.trim().toUpperCase());
 
-  arrayFiltradoCliente.forEach((item,i) => {
-       
+  console.log(arrayFiltradoCliente);
+  // Limpiamos los resultados anteriores antes de mostrar los nuevos
+  misPedidos.innerHTML = '';
+
+  arrayFiltradoCliente.forEach((item, i) => {
+    // Renderizamos los pedidos filtrados por nombre de cliente
     const contenedorMisPedidos = document.createElement("tr");
-    contenedorMisPedidos.innerHTML=` <td>${i}</td>
+    contenedorMisPedidos.innerHTML = `
+      <td>${i}</td>
+      <td>${item.id}</td>
       <td>${item.nombre}</td>
       <td>${item.unidades}</td>
       <td>$${item.precio} ARS</td>
       <td>%${item.descuento}</td>
       <td>$${item.precio * item.unidades} ARS</td>
-      <td>$${calcularDescuentos(item.precio,item.descuento)* item.unidades} ARS</td>
-      `
-         
-      misPedidos.appendChild(contenedorMisPedidos);
+      <td>$${calcularDescuentos(item.precio, item.descuento) * item.unidades} ARS</td>
+    `;
+    misPedidos.appendChild(contenedorMisPedidos);
   });
+
+  inputPosicion.addEventListener("change", () => {
+    // Obtenemos el valor de posición seleccionado
+    const posicionSeleccionada = parseInt(inputPosicion.value, 10);
+  
+    // Validamos que el valor ingresado sea un número válido
+    if (isNaN(posicionSeleccionada)) {
+      console.log("Ingrese un número válido de posición.");
+      return;
+    }
+  
+    // Filtramos el array por la posición seleccionada
+    const arrayFiltradoPorPosicion = arrayFiltradoCliente.filter((item, index) => index === posicionSeleccionada);
+  
+    // Limpiamos los resultados anteriores antes de mostrar los nuevos
+    misPedidos.innerHTML = '';
+  
+    arrayFiltradoPorPosicion.forEach((elemento, i) => {
+      // Renderizamos los pedidos filtrados por posición
+      const contenedorPepe = document.createElement("tr");
+      contenedorPepe.innerHTML = `
+        
+        <td>${elemento.id}</td>
+        <td>${elemento.nombre}</td>
+        <td>${elemento.unidades}</td>
+        <td>$${elemento.precio} ARS</td>
+        <td>%${elemento.descuento}</td>
+        <td>$${elemento.precio * elemento.unidades} ARS</td>
+        <td>$${calcularDescuentos(elemento.precio, elemento.descuento) * elemento.unidades} ARS</td>
+      `;
+      misPedidos.appendChild(contenedorPepe);
+    });
+  });
+  
 }
- 
+
 
 // Función para generar y descargar el PDF
 const descargarPDF = (x) => {

@@ -95,7 +95,7 @@ const setupInputMercaderiaChange = () => {
                 const mercaderia = document.getElementById("mercaderia");
             mercaderia.innerHTML = "";
             let cantidadMercaderia = document.createElement("div");
-    
+                    
             renderContenedoresMercaderia(inputMercaderia.value,cantidadMercaderia);
             renderFormulario(cantidadMercaderia);
            
@@ -106,6 +106,7 @@ const setupInputMercaderiaChange = () => {
             formulario.addEventListener("submit", (e) => {
                 e.preventDefault();
                 for (let i = 1; i <= inputMercaderia.value; i++) {
+
                     const nombreMercaderia = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
                     const unidadesProducto =  parseInt(document.getElementById(`input-unidades${i}`).value);
                     const precioMercaderia = document.getElementById(`input-precio${i}`).value;
@@ -115,7 +116,7 @@ const setupInputMercaderiaChange = () => {
     
                     let neto = valorPrecioNeto(precioMercaderia,descuentoProducto,unidadesProducto)
     
-                    let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto);
+                    let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto,i);
                     datos.push(almacenDatos);
                     localStorage.setItem("misPedidos",JSON.stringify(datos))
                     calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
@@ -194,7 +195,7 @@ const renderFormulario = (contenedor) =>{
     </form>`;
 }
 
-const alamacenarDatos = (nombreDestinatario,nombre,unidades,precio,descuento,precioNeto) =>{
+const alamacenarDatos = (nombreDestinatario,nombre,unidades,precio,descuento,precioNeto,id) =>{
 
     const datosMercaderia={
         nombrePedido: nombreDestinatario,
@@ -202,7 +203,8 @@ const alamacenarDatos = (nombreDestinatario,nombre,unidades,precio,descuento,pre
         unidades: unidades,
         precio: precio,
         descuento: descuento,
-        precioNeto : precioNeto
+        precioNeto : precioNeto,
+        id : id
     }
     return datosMercaderia
 }
