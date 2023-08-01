@@ -107,16 +107,19 @@ const setupInputMercaderiaChange = () => {
                 e.preventDefault();
                 for (let i = 1; i <= inputMercaderia.value; i++) {
 
+                    
                     const nombreMercaderia = document.getElementById(`input-nombre${i}`).value.trim().toUpperCase();
                     const unidadesProducto =  parseInt(document.getElementById(`input-unidades${i}`).value);
                     const precioMercaderia = document.getElementById(`input-precio${i}`).value;
                     const descuentoProducto = document.getElementById(`input-descuento${i}`).value;
     
                     const nombreDestinatario = document.getElementById("nombreDestinatario").value.trim().toUpperCase();
+
+                    const idUnicoParaCadaProductoo = document.getElementById(`producto${i}`)
     
                     let neto = valorPrecioNeto(precioMercaderia,descuentoProducto,unidadesProducto)
     
-                    let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto,i);
+                    let almacenDatos = alamacenarDatos(nombreDestinatario,nombreMercaderia,unidadesProducto,precioMercaderia,descuentoProducto,neto,idUnicoParaCadaProductoo);
                     datos.push(almacenDatos);
                     localStorage.setItem("misPedidos",JSON.stringify(datos))
                     calcularSubTotalLista(precioMercaderia,unidadesProducto,i);
@@ -141,8 +144,8 @@ const setupInputMercaderiaChange = () => {
                     subTotalCasillaNeto.innerHTML = `<b><p id="subTotalLista">SUBTOTAL NETO: 0</p></b>`;
                 }
                console.log(datos);
-               calcularTotalPrecioLista();
-               calcularTotalPrecioNeto();
+              /*  calcularTotalPrecioLista();
+               calcularTotalPrecioNeto(); */
             })
             }
             
@@ -157,6 +160,8 @@ const setupInputMercaderiaChange = () => {
 // render contenedor/es de mercaderia
 const renderContenedoresMercaderia = (valor,contenedor) =>{
     for (let i = 1; i <= valor; i++) {
+         const idUnicoParaCadaProducto = `producto${i}`;
+     
         contenedor.innerHTML += `
             <div class="containers-mercaderia">
                 <div class="mb-3 cantidades">
@@ -182,7 +187,11 @@ const renderContenedoresMercaderia = (valor,contenedor) =>{
                 <b><p id="subTotalNeto" class="bg-warning">SUBTOTAL NETO: 0</p></b>
                 </div>
             </div>`;
+
+            return idUnicoParaCadaProducto
     }
+
+  
 }
 
 // Funcion para render de formulario envio datos inputs mercaderia
@@ -266,15 +275,15 @@ const calcularTotalPrecioNeto = () =>{
 }
 
 // Funcion Reseto de casillas
-const resetearCasillas = (form,array) =>{
+const resetearCasillas = (form) =>{
     form.reset();
-    array.length=0;
+/*     array.length=0;
+    localStorage.setItem("misPedidos",JSON.stringify(array)) */
     const totalLista = document.getElementById("casillasTotalLista");
     const totalNeto = document.getElementById("casillasTotalNeto")
     totalLista.innerHTML="";
     totalNeto.innerHTML="";
-    calcularTotalPrecioLista();
-    calcularTotalPrecioNeto();
+  
 }
 
 // Funcion volver atras calcular producto
